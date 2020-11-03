@@ -1,0 +1,1 @@
+C:37:"PHPUnit\Runner\DefaultTestResultCache":227:{a:2:{s:7:"defects";a:2:{s:30:"Tests\Unit\ExampleTest::testDB";i:5;s:36:"Tests\Unit\CreateProfileTest::testDB";i:4;}s:5:"times";a:2:{s:30:"Tests\Unit\ExampleTest::testDB";d:0;s:36:"Tests\Unit\CreateProfileTest::testDB";d:1.74;}}}
