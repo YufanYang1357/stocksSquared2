@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 // All other tests for databse can be done by simply changing some names in these tests.
-
+// tests
 class CreateProfileTest extends TestCase
 {
 
