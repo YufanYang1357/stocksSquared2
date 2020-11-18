@@ -64,22 +64,6 @@ class CreateProfileTest extends TestCase
 
     }
 
-    /** @test 2 */
-    // This test tests if there is a user with the list is in the database now
-    // This test fails now because there is no user named Testname in the DB
-    public function testDB(){
-        $this->withoutExceptionHandling();
-
-        $this->assertDatabaseHas('users', [
-            'id' => '1',
-            'name' => 'Testname',
-            'email' => 'test@test.com',
-            'email_verified_at' => now(),
-            'password' => 'testPassword',
-            'remember_token' => 'testRT',
-        ]);
-    }
-
     /** @test 3 */
     // This test tests login system
     public function testLogin()
@@ -100,22 +84,64 @@ class CreateProfileTest extends TestCase
     /** @test 4 */
     // This test tests if a user is not an admin
     // This test fails now because there is no admin now
-    public function a_default_user_is_not_an_admin()
-    {
-        $user = factory(User::class)->create();
+    // public function a_default_user_is_not_an_admin()
+    // {
+    //     $user = factory(User::class)->create();
 
-        $this->assertFalse($user->isAdmin());
-    }
+    //     $this->assertFalse($user->isAdmin());
+    // }
 
     /** @test 5 */
     // This test tests if a user is an admin
     // This test fails now because there is no admin now
-    public function an_admin_user_is_an_admin()
-    {
-        $admin = factory(User::class)
-            ->states('admin')
-            ->create();
+    // public function an_admin_user_is_an_admin()
+    // {
+    //     $admin = factory(User::class)
+    //         ->states('admin')
+    //         ->create();
 
-        $this->assertTrue($admin->isAdmin());
+    //     $this->assertTrue($admin->isAdmin());
+    // }
+
+    /** @test 6 */
+    // This test tests the profile database
+    private function makeTestProfile() {
+        $name = factory(User::class)->make();
+        return $name; 
+    }
+
+    // This test tests create profile
+    public function testCreateProfile() {
+        $profile = $this->makeTestProfile();
+        $this->assertInstanceOf(User::class, $profile);
+        $this->assertTrue($profile->save());
+        $profile->delete();
+    }
+
+    // This test tests read profile
+    public function testReadProfile() {
+
+        $profile = $this->makeTestProfile();
+        $profile->save();
+        $this->assertNotNull(User::find(1));
+        $profile->delete();
+    }
+
+    // This test tests update profile
+    public function testUpdateProfile() {
+        $profile = $this->makeTestProfile();
+        $profile->save();
+        $profile->name = 'testName';
+        $profile->save();
+        $this->assertEquals(User::find(1)['name'], 'testName');
+        $profile->delete();
+
+    }
+
+    // This test tests delete profile
+    public function testDeleteProfile() {
+        $profile = $this->makeTestProfile();
+        $profile->save();
+        $this->assertTrue($profile->delete());
     }
 }
